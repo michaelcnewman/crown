@@ -4,7 +4,7 @@ import './collection-item.styles.scss';
 const CollectionItem = (props) => {
   const { id, name, price, imageUrl } = props;
   return (
-    <div className="collection-item">
+    <div className="collection-item" key={id * 100}>
       <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
       <div className="collection-footer">
         <span className="name">{name}</span>
