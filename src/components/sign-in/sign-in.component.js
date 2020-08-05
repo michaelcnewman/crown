@@ -3,7 +3,7 @@ import './sign-in.styles.scss';
 import '../form-input/form-input.component';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import { signInWithGoggle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoggle } from '../../firebase/firebase.utils';
 
 class SignIn extends Component {
   constructor(props) {
@@ -21,9 +21,16 @@ class SignIn extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    this.setState({ email: '', password: '' });
+    const { email, password } = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: '', password: '' });
+    } catch (err) {
+      alert(err);
+    }
   }
 
   render() {
