@@ -59,7 +59,11 @@ class SignIn extends Component {
             <Button isGoggleSignIn={false} type="submit">
               Sign in
             </Button>
-            <Button isGoggleSignIn={true} onClick={signInWithGoggle}>
+            <Button
+              isGoggleSignIn={true}
+              onClick={signInWithGoggle}
+              type="button"
+            >
               Sign in with Google
             </Button>
           </div>

@@ -12,6 +12,8 @@ const firebaseConfig = {
   appId: '1:211797662453:web:4851e2653e6012ade143bc',
 };
 
+firebase.initializeApp(firebaseConfig);
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -34,12 +36,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-firebase.initializeApp(firebaseConfig);
-
 export const auth = firebase.auth();
 
 export const firestore = firebase.firestore();
 
+//Sign in With Google via Popup
 const provider = new firebase.auth.GoogleAuthProvider();
 
 provider.setCustomParameters({
