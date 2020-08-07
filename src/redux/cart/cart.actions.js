@@ -6,9 +6,23 @@ export const toggleCartDropdown = () => {
   };
 };
 
-export const addItemToCart = (cartItem) => {
+export const addItem = (cartItem) => {
   return {
-    type: CartActionTypes.ADD_ITEM_TO_CART,
+    type: CartActionTypes.ADD_ITEM,
+    payload: cartItem,
+  };
+};
+
+export const removeItem = (cartItem) => {
+  return {
+    type: CartActionTypes.REMOVE_ITEM,
+    payload: cartItem,
+  };
+};
+
+export const removeItemFromCart = (cartItem) => {
+  return {
+    type: CartActionTypes.REMOVE_ITEM_FROM_CART,
     payload: cartItem,
   };
 };
