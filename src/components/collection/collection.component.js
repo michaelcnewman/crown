@@ -2,8 +2,7 @@ import React from 'react';
 import './collection.styles.scss';
 import CollectionItem from '../collection-item/collection-item.component';
 
-function Collection(props) {
-  const { title, items } = props;
+function Collection({ title, items }) {
   const previewNum = 4;
 
   return (
@@ -11,7 +10,7 @@ function Collection(props) {
       <h1 className="title">{title.toUpperCase()}</h1>
       <div className="preview">
         {items.slice(0, previewNum).map((item) => {
-          return <CollectionItem key={item.id} {...item} />;
+          return <CollectionItem key={item.id} item={item} />;
         })}
       </div>
     </div>
