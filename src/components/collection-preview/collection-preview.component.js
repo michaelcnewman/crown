@@ -1,8 +1,8 @@
 import React from 'react';
-import './collection.styles.scss';
+import './collection-preview.styles.scss';
 import CollectionItem from '../collection-item/collection-item.component';
 
-function Collection({ title, items }) {
+function CollectionPreview({ title, items }) {
   const previewNum = 4;
 
   return (
@@ -17,4 +17,4 @@ function Collection({ title, items }) {
   );
 }
 
-export default Collection;
+export default CollectionPreview;

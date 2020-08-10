@@ -3,22 +3,22 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-//Styles
+// Styles
 import './App.css';
 
-//Pages
+// Pages
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegister from './pages/sign-in-and-register/sign-in-and-register.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
-//Components
+// Components
 import Header from './components/header/header.component';
 
-//Utilities
+// Utilities
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-//Redux
+// Redux
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
@@ -29,7 +29,7 @@ class App extends Component {
     const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        //const userRef = firestore.doc(`users/${userAuth.uid}`); this also works!
+        // const userRef = firestore.doc(`users/${userAuth.uid}`); this also works!
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({ id: snapShot.id, ...snapShot.data() });
@@ -51,7 +51,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop" component={ShopPage} />
           <Route
             exact
             path="/signin"
