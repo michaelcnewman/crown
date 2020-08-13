@@ -36,7 +36,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       console.log('Error creating user', err.message);
     }
   }
-  console.log(userRef);
   return userRef;
 };
 
@@ -57,6 +56,16 @@ export const convertCollectionsSnapshotToMap = (collections) => {
   }, {});
 };
 
+// Check if User Exists
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 // Seeding Database
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -72,12 +81,10 @@ export const addCollectionAndDocuments = async (
 };
 
 // Sign in With Google via Popup
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
-
-export const signInWithGoggle = () => auth.signInWithPopup(provider);
 
 export default firebase;

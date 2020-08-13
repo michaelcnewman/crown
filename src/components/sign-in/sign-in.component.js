@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './sign-in.styles.scss';
-import '../form-input/form-input.component';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import { auth, signInWithGoggle } from '../../firebase/firebase.utils';
+
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from '../../redux/user/user.actions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -23,17 +27,14 @@ class SignIn extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
+    const { emailSignInStart } = this.props;
     const { email, password } = this.state;
-
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
-    } catch (err) {
-      alert(err);
-    }
+    emailSignInStart(email, password);
   }
 
   render() {
+    const { googleSignInStart } = this.props;
+    const { email, password } = this.state;
     return (
       <div className="sign-in">
         <h2>I already have an account</h2>
@@ -42,7 +43,7 @@ class SignIn extends Component {
           <FormInput
             type="email"
             name="email"
-            value={this.state.email}
+            value={email}
             handleChange={this.handleChange}
             label="Email"
             required
@@ -50,7 +51,7 @@ class SignIn extends Component {
           <FormInput
             type="password"
             name="password"
-            value={this.state.password}
+            value={password}
             handleChange={this.handleChange}
             label="Password"
             required
@@ -59,11 +60,7 @@ class SignIn extends Component {
             <Button isGoggleSignIn={false} type="submit">
               Sign in
             </Button>
-            <Button
-              isGoggleSignIn={true}
-              onClick={signInWithGoggle}
-              type="button"
-            >
+            <Button isGoggleSignIn onClick={googleSignInStart} type="button">
               Sign in with Google
             </Button>
           </div>
@@ -73,4 +70,10 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(emailSignInStart({ email, password })),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
